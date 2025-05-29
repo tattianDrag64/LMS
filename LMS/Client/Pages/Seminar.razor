@@ -10,11 +10,11 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th>Seminarium</th>
-                        <th>Förnamn</th>
-                        <th>Efternamn</th>
-                        <th>Datum</th>
-                        <th>Tid</th>
+                        <th>Seminar</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,43 +24,43 @@
                         <td><input type="text" @bind-value="SeminarToUpdate.LastName" /></td>
                         <td><input type="text" @bind-value="SeminarToUpdate.SeminarDate" /></td>
                         <td><input type="text" @bind-value="SeminarToUpdate.SeminarTime" /></td>
-                        <td><button type="submit" class="btn btn-primary">Spara</button></td>
+                        <td><button type="submit" class="btn btn-primary">Save</button></td>
                     </tr>
                 </tbody>
             </table>
         </EditForm>
     }
-</AuthorizeView>
+    </AuthorizeView>
 
-@if (AllSeminars == null)
+    @if (AllSeminars == null)
 {
-    <h4>Laddar...</h4>
+    <h4>Loading...</h4>
 }
 else if (AllSeminars.Count == 0)
 {
-    <h4>Inga seminarium för tillfället</h4>
+    <h4>No seminars available at the moment</h4>
 }
 else
 {
     <MudTable Items="@AllSeminars" Hover="@hover" Filter="new Func<Seminarium,bool>(FilterFunc1)" @bind-SelectedItem="SeminarToUpdate">
         <ToolBarContent>
-            <MudText Typo="Typo.h6">Seminarium</MudText>
+            <MudText Typo="Typo.h6">Seminars</MudText>
             <MudSpacer />
             <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         </ToolBarContent>
         <HeaderContent>
-            <MudTh>Seminarium</MudTh>
-            <MudTh>Föreläsare</MudTh>
-            <MudTh>Dag & datum</MudTh>
-            <MudTh>Tid</MudTh>
+            <MudTh>Title</MudTh>
+            <MudTh>Speaker</MudTh>
+            <MudTh>Date</MudTh>
+            <MudTh>Time</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Seminarium"><a href="SeminarById/@context.Id"></a>@context.Title</MudTd>
-            <MudTd DataLabel="Föreläsare">@context.FirstName @context.LastName</MudTd>
-            <MudTd DataLabel="Datum">@context.SeminarDate.ToShortDateString()</MudTd>
-            <MudTd DataLabel="Tid">@context.SeminarTime.ToString("HH:mm")</MudTd>
+            <MudTd DataLabel="Title"><a href="SeminarById/@context.Id">@context.Title</a></MudTd>
+            <MudTd DataLabel="Speaker">@context.FirstName @context.LastName</MudTd>
+            <MudTd DataLabel="Date">@context.SeminarDate.ToShortDateString()</MudTd>
+            <MudTd DataLabel="Time">@context.SeminarTime.ToString("HH:mm")</MudTd>
             <AuthorizeView Context="_context" Roles="Librarian, Admin">
-                <MudTd DataLabel="EditAndDelete" HorizontalAlignment="HorizontalAlignment.Right">
+                <MudTd DataLabel="Actions" HorizontalAlignment="HorizontalAlignment.Right">
                     <MudButton @onclick="() => EditSeminar(context.Id, context)"><MudIcon Icon="@Icons.Filled.Edit"></MudIcon></MudButton>
                     <MudButton @onclick="() => DeleteSeminar(context.Id)"><MudIcon Icon="@Icons.Filled.Delete"></MudIcon></MudButton>
                 </MudTd>
@@ -113,15 +113,17 @@ else
 
     public async Task DeleteSeminar(int id)
     {
-        var parameters = new DialogParameters();
-        parameters.Add("ContentText", "Är du säker på att du vill radera seminariet? Detta går inte att återkalla.");
-        parameters.Add("ButtonText", "Radera");
-        parameters.Add("Color", Color.Error);
-        parameters.Add("Id", id);
+        var parameters = new DialogParameters
+        {
+            { "ContentText", "Are you sure you want to delete this seminar? This action cannot be undone." },
+            { "ButtonText", "Delete" },
+            { "Color", Color.Error },
+            { "Id", id }
+        };
 
-        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
 
-        var dialog = DialogService.Show<DeleteSeminar>("Radera Seminarium", parameters, options);
+        var dialog = DialogService.Show<DeleteSeminar>("Delete Seminar", parameters, options);
 
         var result = await dialog.Result;
         if (!result.Cancelled)
@@ -134,12 +136,12 @@ else
     {
         CreateSeminar.SeminarDate = TodaysDate;
         var result = await SeminarManager.CreateSeminar(CreateSeminar);
-        _ = result == null ? (message = $"Seminariet \"{CreateSeminar.Title}\" har lagts till") : (message = result);
+        message = result == null ? $"Seminar \"{CreateSeminar.Title}\" has been added" : result;
     }
 
     void ShowRegisterSeminar()
     {
-        _ = !registerSeminar ? registerSeminar = true : registerSeminar = false;
+        registerSeminar = !registerSeminar;
     }
 
     private bool FilterFunc1(Seminarium seminar) => FilterFunc(seminar, searchString1);
@@ -152,7 +154,7 @@ else
             return true;
         if (seminar.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if ($"{seminar.Title} {seminar.FirstName} {seminar.LastName}".Contains(searchString))
+        if ($"{seminar.Title} {seminar.FirstName} {seminar.LastName}".Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
         return false;
     }

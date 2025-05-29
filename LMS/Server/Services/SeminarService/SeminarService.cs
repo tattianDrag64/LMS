@@ -69,7 +69,7 @@ namespace BibliotekBoklusen.Server.Services.SeminarService
             {
                 var response=_context.Seminariums.Remove(seminar);
                 await _context.SaveChangesAsync();
-                return "Product has been deleted";
+                return "Seminar has been deleted";
             }
             return null;
         }

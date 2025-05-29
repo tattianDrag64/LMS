@@ -5,9 +5,9 @@
 		<MudNavGroup Title="Admin" Expanded="true">
 			<AuthorizeView Context="_context" Roles="Admin">
 				<MudNavGroup Title="Personal" Expanded="false">
-					<MudNavLink Href="/employees" Icon="@Icons.Filled.Person" IconColor="Color.Success" Match="NavLinkMatch.Prefix">All Personnel</MudNavLink>
+					<MudNavLink Href="/employees" Icon="@Icons.Filled.Person" IconColor="Color.Success" Match="NavLinkMatch.Prefix">All Employees</MudNavLink>
 					<MudNavLink Href="/searchemployee" Icon="@Icons.Filled.PersonSearch" IconColor="Color.Success">Search Employee</MudNavLink>
-					<MudNavLink Href="/register" Icon="@Icons.Filled.PersonAddAlt1" IconColor="Color.Success" Match="NavLinkMatch.Prefix">Register Personnel</MudNavLink>
+					<MudNavLink Href="/register" Icon="@Icons.Filled.PersonAddAlt1" IconColor="Color.Success" Match="NavLinkMatch.Prefix">Register Employee</MudNavLink>
 				</MudNavGroup>
 			</AuthorizeView>
 			<MudNavGroup Title="Products" Expanded="false">
@@ -27,7 +27,7 @@
 				<MudNavLink Href="/searchmember" Icon="@Icons.Filled.PersonSearch" IconColor="Color.Success">Search Members</MudNavLink>
 				<MudNavLink Href="/register" Icon="@Icons.Filled.PersonAddAlt1" IconColor="Color.Success">Register Member</MudNavLink>
 			</MudNavGroup>
-			<MudNavGroup Title="Reports" Expanded="false">
+			<MudNavGroup Title="Other" Expanded="false">
 				<MudNavLink Href="/topproduct" Icon="@Icons.Filled.ShowChart" IconColor="Color.Success" Match="NavLinkMatch.Prefix">Popular Products</MudNavLink>
 				<MudNavLink Href="/MostUserLoans" Icon="@Icons.Filled.ShowChart" IconColor="Color.Success" Match="NavLinkMatch.Prefix">Most Loans</MudNavLink>
 				<MudNavLink Href="/activeloans" Icon="@Icons.Filled.ShowChart" IconColor="Color.Success" Match="NavLinkMatch.Prefix">Active Loans</MudNavLink>

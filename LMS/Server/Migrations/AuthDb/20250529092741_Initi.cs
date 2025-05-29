@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotekBoklusen.Server.Migrations.AuthDb
 {
-    public partial class Initial : Migration
+    public partial class Initi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -161,15 +161,15 @@ namespace BibliotekBoklusen.Server.Migrations.AuthDb
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2c5e174e-3b0e-446f-86af-483d56fd7210", "3849b17d-e57d-4cc1-98a6-3b0fe08bccb4", "Admin", "ADMIN" },
-                    { "5c5e174e-3b0e-446f-86af-483d56fd7210", "52e494bc-83b7-4d4b-912e-0283d15f7241", "Librarian", "LIBRARIAN" },
-                    { "6c5e174e-3b0e-446f-86af-483d56fd7210", "0d608273-c64c-4dda-be5e-9051b4249ea0", "Member", "MEMBER" }
+                    { "2c5e174e-3b0e-446f-86af-483d56fd7210", "7bafca0f-825f-4c0b-9c14-11cf16536bd5", "Admin", "ADMIN" },
+                    { "5c5e174e-3b0e-446f-86af-483d56fd7210", "5c4e9407-322e-43f4-8693-fc0be13b96e0", "Librarian", "LIBRARIAN" },
+                    { "6c5e174e-3b0e-446f-86af-483d56fd7210", "d36bb5fd-e9ec-4d5a-8783-4e009da0ad55", "Member", "MEMBER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "d55d55c1-c290-43f8-81ba-dd7d1a54c352", "admin@admin.com", true, "", "", false, null, null, null, "AQAAAAEAACcQAAAAEC0iW//YUETQtdVvpXUKssmZF+OU0qJhtQg76jnXBoYTWP0zT3GgnrHFrxdqwlK+sg==", null, false, "6ee2b4ae-dff1-4bac-9974-06e0650eadb6", false, "admin@admin.com" });
+                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "a23d5d78-cb06-4ac7-83b5-84f1668d5089", "admin@admin.com", true, "", "", false, null, null, null, "AQAAAAEAACcQAAAAECPqq+WcXyAK4RY+Q0QuQQtl71PZS5FvZHIr/n+9cmlYBTDxkAiba/I9YUni9oM7SA==", null, false, "65bd1327-8df7-4471-a0c8-186cd5d61670", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

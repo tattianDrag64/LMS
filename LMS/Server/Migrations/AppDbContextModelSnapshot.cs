@@ -252,7 +252,7 @@ namespace BibliotekBoklusen.Server.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2025, 5, 29, 12, 7, 29, 478, DateTimeKind.Local).AddTicks(487),
+                            Created = new DateTime(2025, 5, 29, 12, 26, 48, 309, DateTimeKind.Local).AddTicks(9725),
                             Email = "admin@admin.com",
                             FirstName = "",
                             IsActive = false,

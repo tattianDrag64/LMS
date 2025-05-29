@@ -8,10 +8,10 @@ namespace BibliotekBoklusen.Shared
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Obligatorisk fält")]
+        [Required(ErrorMessage = "Required Field")]
         public string Title { get; set; } = String.Empty;
 
-        [Required(ErrorMessage = "Obligatorisk fält")]
+        [Required(ErrorMessage = "Required Field")]
         [Column(TypeName = "datetime2")]
         public DateTime Published { get; set; }
 

@@ -201,7 +201,7 @@ namespace BibliotekBoklusen.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Created", "Email", "FirstName", "IsActive", "LastName", "UserRole" },
-                values: new object[] { 1, new DateTime(2025, 5, 29, 12, 7, 29, 478, DateTimeKind.Local).AddTicks(487), "admin@admin.com", "", false, "", 0 });
+                values: new object[] { 1, new DateTime(2025, 5, 29, 12, 26, 48, 309, DateTimeKind.Local).AddTicks(9725), "admin@admin.com", "", false, "", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryProduct_ProductsId",
