@@ -1,0 +1,41 @@
+﻿@page "/returnproducts"
+@inject ILoanManager LoanManager
+
+<MudCard>
+	<MudCardContent>
+		<MudText Typo="Typo.h6">Return Products</MudText>
+		<MudNumericField Label="Which item should be returned?" @bind-Value="copyToReturn"
+						 For="@(() => copyToReturn)" HelperText="Minimum value is 1."></MudNumericField>
+		<MudButton Variant="Variant.Text" Color="Color.Primary" @onclick="ReturnLoan">Return</MudButton>
+
+		@if (message == "Product submitted")
+		{
+			<MudAlert Severity="Severity.Success">@message</MudAlert>
+		}
+		else if (message == "Nothing found with this itemID")
+		{
+			<MudAlert Severity="Severity.Error" Variant="Variant.Outlined">@message</MudAlert>
+
+		}
+
+	</MudCardContent>
+</MudCard>
+
+@code {
+	private int copyToReturn;
+	private string message = "";
+
+	async Task ReturnLoan()
+	{
+		var result = await LoanManager.ReturnLoanAsync(copyToReturn);
+
+		if (result)
+		{
+			message = "Product submitted";
+		}
+		else
+		{
+			message = "Nothing found with this itemID";
+		}
+	}
+}
