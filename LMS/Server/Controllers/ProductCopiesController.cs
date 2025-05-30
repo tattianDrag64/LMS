@@ -33,6 +33,48 @@ namespace BibliotekBoklusen.Server.Controllers
 
         }
 
-       
+        [HttpGet("available-names")]
+        public async Task<ActionResult<List<string>>> GetAvailableProductNames()
+        {
+            var products = await _context.productCopies
+                .Where(pc => pc.IsLoaned)
+                .Include(pc => pc.product)
+                .Select(pc => pc.product.Title)
+                .Distinct()
+                .ToListAsync();
+
+            return Ok(products);
+        }
+
+        [HttpPost("return-by-name")]
+        public async Task<ActionResult<bool>> ReturnLoanByName([FromBody] string productName)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Title == productName);
+            if (product == null) return NotFound(false);
+            var loanedCopy = await _context.productCopies
+                .Where(pc => pc.ProductId == product.Id && pc.IsLoaned)
+                .OrderBy(pc => pc.Id) 
+                .FirstOrDefaultAsync();
+
+            if (loanedCopy == null) return NotFound(false);
+
+            var loan = await _context.Loans
+                .Where(l => l.ProductCopyId == loanedCopy.Id && !l.isReturned)
+                .FirstOrDefaultAsync();
+
+            if (loan != null)
+            {
+                loan.isReturned = true;
+            }
+            loanedCopy.IsLoaned = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(true);
+        }
+
+
+
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace BibliotekBoklusen.Client.Services
+﻿using static System.Net.WebRequestMethods;
+
+namespace BibliotekBoklusen.Client.Services
 {
 
     public class LoanManager : ILoanManager
@@ -63,5 +65,18 @@
             var result = await _httpClient.GetFromJsonAsync<List<Product>>("api/Loans/TopProducts");
             return result;
         }
+
+        public async Task<List<string>> GetAvailableLoanedProductNamesAsync()
+        {
+            var response = await _httpClient.GetFromJsonAsync<List<string>>("api/productcopies/available-names");
+            return response ?? new List<string>();
+        }
+
+        public async Task<bool> ReturnLoanByNameAsync(string productName)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/productcopies/return-by-name", productName);
+            return await response.Content.ReadFromJsonAsync<bool>();
+        }
+
     }
 }

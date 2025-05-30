@@ -7,7 +7,7 @@
         <MudPaper Class="pa-4">
             <MudForm Model=Product>
                 <MudCardHeader>
-                    <h5>Produktdetaljer</h5>
+                    <h5>Product Details</h5>
                 </MudCardHeader>
                 <MudCardContent Class="pa-0">
                     <MudTable Items="@Product.Creators" Elevation="0" Breakpoint="Breakpoint.Sm">
@@ -16,14 +16,14 @@
                                 <MudForm Model="@context">
                                     <MudTextField @bind-Value="context.FirstName"
                                                   For="@(() => context.FirstName)"
-                                                  Label="Skaparens förnamn" />
+                                                  Label="Creator's First Name" />
                                 </MudForm>
                             </MudTd>
                             <MudTd Datalabel="LastName">
                                 <MudForm Model="@context">
                                     <MudTextField @bind-Value="context.LastName"
                                                   For="@(() => context.LastName)"
-                                                  Label="Skaparens efternamn" />
+                                                  Label="Creator's Last Name" />
                                 </MudForm>
                             </MudTd>
                             @if (CreatorCounter != 0)
@@ -43,14 +43,14 @@
                 <MudCardContent>
                     <MudTextField @bind-Value="Product.Title"
                                   For="@(() => Product.Title)"
-                                  Label="Titel" />
+                                  Label="Title" />
                     <MudTextField @bind-Value="Product.Published"
                                   For="@(() => Product.Published)"
-                                  Label="Publicerad" />
+                                  Label="Published" />
                     <MudTextField @bind-Value="Product.NumberOfCopiesOwned"
                                   For="@(() => Product.NumberOfCopiesOwned)"
-                                  Label="Antal exemplar" />
-                    <MudSelect T="ProductType" Label="Typ" @bind-Value="Product.Type" Placeholder="Välj typ" AnchorOrigin="Origin.BottomCenter">
+                                  Label="Number of Copies" />
+                    <MudSelect T="ProductType" Label="Type" @bind-Value="Product.Type" Placeholder="Select type" AnchorOrigin="Origin.BottomCenter">
                         <MudSelectItem T="ProductType" Value="@ProductType.Book">@ProductType.Book.ToString()</MudSelectItem>
                         <MudSelectItem T="ProductType" Value="@ProductType.Ebook">@ProductType.Ebook.ToString()</MudSelectItem>
                         <MudSelectItem T="ProductType" Value="@ProductType.Movie">@ProductType.Movie.ToString()</MudSelectItem>
@@ -76,7 +76,6 @@
                 @foreach (var product in AddedProducts)
                 {
                     <MudText Color="Color.Success">@product.Title</MudText>
-
                 }
             </MudCardContent>
             <MudCardActions>
@@ -85,6 +84,7 @@
         </MudPaper>
     </MudItem>
 </MudGrid>
+
 @if (message == "Product added")
 {
     <MudAlert Severity="Severity.Success">@message</MudAlert>
@@ -115,7 +115,7 @@ else if (message == "Please select at least one genre")
     {
         if (CategoriesToAdd.Count() == 0)
         {
-            message = "Select at least one genre";
+            message = "Please select at least one genre";
         }
         else
         {

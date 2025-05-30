@@ -44,7 +44,7 @@ else if (message == "No staff found")
 {
     <MudTable Context="employee" Items="@AllEmployees">
         <ToolBarContent>
-            <MudText Typo="Typo.h6">Staff</MudText>
+            <MudText Typo="Typo.h6">Employee</MudText>
             <MudSpacer />
             <MudTextField @onkeyup="HandleSearchEmployee" @bind-Value="searchText" Placeholder="Search" Adornment="Adornment.Start" Class="mt-0"></MudTextField>
             <MudButton @onclick="SearchForEmployee"><MudIcon Icon="@Icons.Material.Filled.Search"></MudIcon></MudButton>

@@ -44,7 +44,7 @@ else if (message == "Updated")
 {
 	<MudTable Context="member" Items="@members">
 		<ToolBarContent>
-			<MudText Typo="Typo.h6">Staff</MudText>
+			<MudText Typo="Typo.h6">Member</MudText>
 			<MudSpacer />
 			<MudTextField @onkeyup="HandleSearchMembers" @bind-Value="searchText" Placeholder="Search" Adornment="Adornment.Start" Class="mt-0"></MudTextField>
 			<MudButton @onclick="SearchForMembers"><MudIcon Icon="@Icons.Material.Filled.Search"></MudIcon></MudButton>

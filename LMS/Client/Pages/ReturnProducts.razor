@@ -4,38 +4,41 @@
 <MudCard>
 	<MudCardContent>
 		<MudText Typo="Typo.h6">Return Products</MudText>
-		<MudNumericField Label="Which item should be returned?" @bind-Value="copyToReturn"
-						 For="@(() => copyToReturn)" HelperText="Minimum value is 1."></MudNumericField>
+
+		<MudSelect T="string" Label="Select product to return" @bind-Value="selectedProductName">
+			@foreach (var product in availableProductNames)
+			{
+				<MudSelectItem T="string" Value="@product">@product</MudSelectItem>
+			}
+		</MudSelect>
+
 		<MudButton Variant="Variant.Text" Color="Color.Primary" @onclick="ReturnLoan">Return</MudButton>
 
 		@if (message == "Product submitted")
 		{
 			<MudAlert Severity="Severity.Success">@message</MudAlert>
 		}
-		else if (message == "Nothing found with this itemID")
+		else if (message == "Nothing found with this product name")
 		{
 			<MudAlert Severity="Severity.Error" Variant="Variant.Outlined">@message</MudAlert>
-
 		}
-
 	</MudCardContent>
 </MudCard>
 
 @code {
-	private int copyToReturn;
+	private string selectedProductName;
+	private List<string> availableProductNames = new();
 	private string message = "";
 
-	async Task ReturnLoan()
+	protected override async Task OnInitializedAsync()
 	{
-		var result = await LoanManager.ReturnLoanAsync(copyToReturn);
+		availableProductNames = await LoanManager.GetAvailableLoanedProductNamesAsync();
+	}
 
-		if (result)
-		{
-			message = "Product submitted";
-		}
-		else
-		{
-			message = "Nothing found with this itemID";
-		}
+	private async Task ReturnLoan()
+	{
+		var result = await LoanManager.ReturnLoanByNameAsync(selectedProductName);
+
+		message = result ? "Product submitted" : "Nothing found with this product name";
 	}
 }
